@@ -1,0 +1,21 @@
+name: bot
+description: Command Line Interface for Flutter
+version: 0.0.1
+publish_to: none
+homepage: https://github.com/herveGuigoz/bot
+
+environment:
+  sdk: ">=2.14.0 <3.0.0"
+
+dependencies: 
+  args: ^2.3.0
+  io: ^1.0.3
+  path: ^1.8.0
+  universal_io: ^2.0.4
+
+dev_dependencies:
+  test: ^1.19.2
+  very_good_analysis: ^2.4.0
+
+executables:
+  bot:
