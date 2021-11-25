@@ -3,7 +3,7 @@ import 'package:args/command_runner.dart';
 import 'package:bot/src/commands/commands.dart';
 import 'package:bot/src/utils/exceptions.dart';
 import 'package:bot/src/utils/logger.dart';
-import 'package:bot/src/version.dart';
+import 'package:bot/version.dart';
 import 'package:io/io.dart';
 
 /// {@template bot}

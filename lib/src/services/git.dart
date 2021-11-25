@@ -36,16 +36,18 @@ class Git {
       ['rev-parse', 'HEAD'],
     );
     final response = result.stdout as String;
-
     return _lineSplitter.convert(response).map((l) => l.sanitize).first;
   }
 
   /// Returns the commits since the last tag.
   static Future<List<Commit>> findCommitsSinceLastTag() async {
+    final tag = await findMostRecentTag();
+
     final result = await Shell.run(
       'git',
-      ['log', '--pretty=format:%H;%s;', '${await findMostRecentTag()}..HEAD'],
+      ['log', '--pretty=format:%H;%s;', if (tag != null) '$tag..HEAD'],
     );
+
     final response = result.stdout as String;
     final lines = _lineSplitter.convert(response).map((l) => l.sanitize);
     final commits = lines.map((line) => Commit.fromString(line)).toList();
@@ -64,16 +66,23 @@ class Git {
     await Shell.run('git', ['push', 'origin', 'HEAD:master']);
   }
 
-  /// Returns the latest tag from the current branch
-  static Future<String> findMostRecentTag() async {
+  /// List local tags.
+  static Future<List<String>> listTags() async {
     final result = await Shell.run(
       'git',
-      ['describe', '--tags', '--abbrev=0'],
+      ['tag', '-l', '--sort=-v:refname'],
     );
     final response = result.stdout as String;
+    final lines = _lineSplitter.convert(response).map((l) => l.sanitize);
 
-    final tag = _lineSplitter.convert(response).map((l) => l.sanitize).first;
-    return Version.fromString(tag.substring(1)).tag;
+    return lines.toList();
+  }
+
+  /// Returns the latest tag from the current branch
+  static Future<String?> findMostRecentTag() async {
+    final tags = await listTags();
+
+    if (tags.isNotEmpty) return tags.first;
   }
 
   /// Create new tag
@@ -83,6 +92,9 @@ class Git {
 
   /// Push the latest tag to the remote
   static Future<void> pushTagToRemote() async {
-    await Shell.run('git', ['push', 'origin', (await findMostRecentTag())]);
+    final tag = await findMostRecentTag();
+    if (tag != null) {
+      await Shell.run('git', ['push', 'origin', tag]);
+    }
   }
 }

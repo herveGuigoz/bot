@@ -26,6 +26,12 @@ class ReleaseCommand extends Command<int> {
         help: 'Define the path to the project',
       )
       ..addOption(
+        'force',
+        abbr: 'f',
+        help: 'Force updates',
+        defaultsTo: 'false',
+      )
+      ..addOption(
         'commit',
         help: 'Commit changes',
         defaultsTo: 'true',
@@ -43,6 +49,11 @@ class ReleaseCommand extends Command<int> {
   /// Return arg's `commit` value. Default to true.
   bool get isCommitRequested {
     return (argResults?['commit'] as String? ?? 'true').toBool();
+  }
+
+  /// Return arg's `force` value. Default to false.
+  bool get isForced {
+    return (argResults?['force'] as String? ?? 'false').toBool();
   }
 
   /// Read project path from command line
@@ -69,7 +80,7 @@ class ReleaseCommand extends Command<int> {
   Future<List<Commit>> get commitsSinceCurrentVersion async {
     final commits = await Git.findCommitsSinceLastTag();
     if (commits.isEmpty) {
-      throw CommitsNotFoundException(await Git.findMostRecentTag());
+      throw CommitsNotFoundException();
     }
     return commits;
   }
@@ -81,7 +92,9 @@ class ReleaseCommand extends Command<int> {
       throw GitDirtyIndexException();
     }
 
-    await validateNextVersion(targetVersion);
+    if (!isForced) {
+      await validateNextVersion(targetVersion);
+    }
 
     if (!_logger.answerIsYes('Release version $targetVersion ? (y/n) ')) {
       return ExitCode.success.code;
@@ -108,11 +121,6 @@ class ReleaseCommand extends Command<int> {
     /// Check for regression
     if (target <= current) {
       throw RegressionException(currentVersion, target);
-    }
-
-    /// Assert last tagged version match current version from Pubspec
-    if (await Git.findMostRecentTag() != current.tag) {
-      throw TagNotFoundException(current.tag);
     }
   }
 
@@ -211,43 +219,19 @@ class RegressionException implements BotException {
   }
 }
 
-/// {@template tag_not_found_exception}
-/// Exception thrown when the last tag is not the current version.
-/// {@endtemplate}
-class TagNotFoundException implements BotException {
-  /// {@macro tag_not_found_exception}
-  TagNotFoundException(this.tag);
-
-  /// Last tag
-  final String tag;
-
-  @override
-  ExitCode get exitCode => ExitCode.config;
-
-  @override
-  String get message {
-    return 'Could not find tag $tag in working directory '
-        'Please ensure that your working directory is synced with Github: '
-        'git fetch -all';
-  }
-}
-
 /// {@template commits_not_found_exception}
 /// Exception thrown when no commits are found since the last tag.
 /// {@endtemplate}
 class CommitsNotFoundException implements BotException {
   /// {@macro commits_not_found_exception}
-  CommitsNotFoundException(this.tag);
-
-  /// Last tag
-  final String tag;
+  CommitsNotFoundException();
 
   @override
   ExitCode get exitCode => ExitCode.config;
 
   @override
   String get message {
-    return 'Could not find commits since tag $tag in working directory '
+    return 'Could not find commits since last tag in working directory '
         'Please ensure that your working directory is synced with Github: '
         'git rebase origin/master';
   }

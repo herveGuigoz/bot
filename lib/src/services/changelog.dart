@@ -32,8 +32,7 @@ class Changelog {
   }
 
   static File _getChangelogFile(String cwd) {
-    final changelog = File(p.join(cwd, changelogPath));
-    if (!changelog.existsSync()) throw FileNotFound(changelogPath, cwd);
+    final changelog = File(p.join(cwd, changelogPath))..createSync();
     return changelog;
   }
 }

@@ -32,7 +32,6 @@ class Env {
   /// Retrieve or create lib/version.dart file.
   static File getEnvFile(String path) {
     final file = File(p.join(path, envPath))..createSync();
-
     return file;
   }
 }

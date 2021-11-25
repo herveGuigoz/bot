@@ -25,7 +25,7 @@ class TagCommand extends Command<int> {
   final Logger _logger;
 
   @override
-  String get description => 'Create and push new tag';
+  String get description => 'Create and push new tag for current version';
 
   @override
   String get name => 'tag';
@@ -70,7 +70,7 @@ class TagCommand extends Command<int> {
     final currentTag = await Git.findMostRecentTag();
 
     if (currentTag == version.tag) {
-      throw GitTagException(currentTag);
+      throw GitTagException(currentTag!);
     }
   }
 }
