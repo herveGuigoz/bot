@@ -23,6 +23,7 @@ class Bot extends CommandRunner<int> {
     );
     addCommand(ReleaseCommand(logger: _logger));
     addCommand(TagCommand(logger: _logger));
+    addCommand(PackagesCommand(logger: _logger));
   }
 
   final Logger _logger;

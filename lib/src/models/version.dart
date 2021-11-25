@@ -5,6 +5,7 @@ import 'package:io/io.dart';
 
 /// {@template version}
 /// A representation of package version.
+/// https://github.com/flutter/flutter/blob/master/packages/flutter_tools/lib/src/base/version.dart
 /// {@endtemplate}
 class Version extends Comparable<Version> {
   /// {@macro version}

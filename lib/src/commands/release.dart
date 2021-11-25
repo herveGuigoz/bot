@@ -11,9 +11,7 @@ import 'package:universal_io/io.dart';
 /// {@endtemplate}
 class ReleaseCommand extends Command<int> {
   /// {@macro release_command}
-  ReleaseCommand({
-    Logger? logger,
-  }) : _logger = logger ?? Logger() {
+  ReleaseCommand({Logger? logger}) : _logger = logger ?? Logger() {
     argParser
       ..addOption(
         'version',

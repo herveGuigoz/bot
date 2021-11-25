@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:bot/src/models/models.dart';
-import 'package:test/scaffolding.dart';
 import 'package:test/test.dart';
 
 void main() {
