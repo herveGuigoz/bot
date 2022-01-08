@@ -87,23 +87,25 @@ class ReleaseCommand extends Command<int> {
 
   @override
   Future<int> run() async {
+    final version = targetVersion;
+
     /// Assert current git directory do not contains indexed files.
     if (await Git.hasDirtyIndex()) {
       throw GitDirtyIndexException();
     }
-
+    
     if (!isForced) {
-      await validateNextVersion(targetVersion);
+      await validateNextVersion(version);
     }
 
-    if (!_logger.answerIsYes('Release version $targetVersion ? (y/n) ')) {
+    if (!_logger.answerIsYes('Release version $version ? (y/N) ')) {
       return ExitCode.success.code;
     }
 
-    await rewriteFiles(targetVersion);
+    await rewriteFiles(version);
 
     if (isCommitRequested) {
-      await commitChanges();
+      await commitChanges(version);
     }
 
     return ExitCode.success.code;
@@ -149,11 +151,11 @@ class ReleaseCommand extends Command<int> {
   }
 
   /// Commit all changes in the working directory
-  Future<void> commitChanges() async {
+  Future<void> commitChanges(Version version) async {
     final process = _logger.progress('Commiting changes');
 
     try {
-      await Git.commitChanges(targetVersion);
+      await Git.commitChanges(version);
       process('Commited changes.');
     } catch (_) {
       process();
