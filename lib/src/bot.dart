@@ -1,7 +1,6 @@
 import 'package:args/args.dart';
 import 'package:args/command_runner.dart';
 import 'package:bot/src/commands/commands.dart';
-import 'package:bot/src/commands/openapi.dart';
 import 'package:bot/src/utils/utils.dart';
 import 'package:bot/version.dart';
 import 'package:io/io.dart';
@@ -23,7 +22,8 @@ class Bot extends CommandRunner<int> {
     );
     addCommand(ReleaseCommand(logger: _logger));
     addCommand(TagCommand(logger: _logger));
-    addCommand(OpenApiCommand());
+    addCommand(CreateCommand(logger: _logger));
+    addCommand(OpenApiCommand(logger: _logger));
   }
 
   final Logger _logger;

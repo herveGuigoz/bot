@@ -1,4 +1,5 @@
-import 'package:mason/mason.dart';
+import 'package:bot/src/utils/utils.dart';
+import 'package:mason/mason.dart' show MasonBundle;
 import 'package:universal_io/io.dart';
 
 /// {@template template}

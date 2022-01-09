@@ -1,8 +1,8 @@
-
 import 'package:bot/src/cli/shell.dart';
 import 'package:bot/src/commons/templates.dart';
 import 'package:bot/src/modules/openapi/templates/templates.dart';
-import 'package:mason/mason.dart';
+import 'package:bot/src/utils/utils.dart';
+import 'package:mason/mason.dart' show MasonBundle;
 import 'package:universal_io/io.dart';
 
 abstract class RessourcesTemplate extends Template {
@@ -16,14 +16,6 @@ abstract class RessourcesTemplate extends Template {
   @override
   Future<void> onGenerateComplete(Logger logger, Directory outputDir) async {
     await Dart.format(cwd: outputDir.absolute.path);
-    _logSummary(logger);
-  }
-
-  void _logSummary(Logger logger) {
-    logger
-      ..info('\n')
-      ..alert('Created ressources files.')
-      ..info('\n');
   }
 }
 
