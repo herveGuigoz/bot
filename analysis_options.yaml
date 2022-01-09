@@ -13,6 +13,7 @@ analyzer:
     - '**/lib/generated_plugin_registrant.dart'
     - '**/*.freezed.dart'
     - '**/*.g.dart'
+    - bricks/**
 
   plugins:
     - dart_code_metrics
