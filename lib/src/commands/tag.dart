@@ -12,9 +12,7 @@ import 'package:path/path.dart' as path;
 /// {@endtemplate}
 class TagCommand extends Command<int> {
   /// {@macro tag_command}
-  TagCommand({
-    Logger? logger,
-  }) : _logger = logger ?? Logger() {
+  TagCommand({Logger? logger}) : _logger = logger ?? Logger() {
     argParser.addOption(
       'path',
       abbr: 'p',

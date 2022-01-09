@@ -51,3 +51,21 @@ Usage: bot tag [arguments]
 -h, --help    Print this usage information.
 -p, --path    Define the path to the project
 ```
+
+### `bot pkg get`
+
+Get packages in a Dart or Flutter project.
+
+```sh
+# Install packages in the current directory
+very_good packages get
+
+# Install packages in ./some/other/directory
+very_good packages get ./some/other/directory
+
+# Install packages recursively
+very_good packages get --recursive
+
+# Install packages recursively (shorthand)
+very_good packages get -r
+```

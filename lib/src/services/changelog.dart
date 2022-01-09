@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:bot/src/models/models.dart';
-import 'package:bot/src/utils/exceptions.dart';
 import 'package:bot/src/utils/extensions.dart';
 import 'package:path/path.dart' as p;
 
