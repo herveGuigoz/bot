@@ -1,8 +1,7 @@
 import 'dart:io';
 
-import 'package:bot/src/models/models.dart';
-import 'package:bot/src/utils/exceptions.dart';
-import 'package:bot/src/utils/extensions.dart';
+import 'package:bot/src/modules/release/models/models.dart';
+import 'package:bot/src/utils/utils.dart';
 import 'package:path/path.dart' as p;
 
 /// changelog file path.

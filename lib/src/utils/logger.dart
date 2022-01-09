@@ -1,7 +1,4 @@
-import 'dart:async';
-
-import 'package:io/ansi.dart';
-import 'package:universal_io/io.dart';
+part of 'utils.dart';
 
 /// A basic Logger which wraps [print] and applies various styles.
 class Logger {

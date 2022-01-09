@@ -1,6 +1,5 @@
-import 'package:bot/src/models/version.dart';
-import 'package:bot/src/utils/exceptions.dart';
-import 'package:bot/src/utils/extensions.dart';
+import 'package:bot/src/modules/release/models/models.dart';
+import 'package:bot/src/utils/utils.dart';
 import 'package:io/io.dart';
 import 'package:path/path.dart' as p;
 import 'package:universal_io/io.dart';

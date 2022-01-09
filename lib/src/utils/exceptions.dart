@@ -1,4 +1,4 @@
-import 'package:io/io.dart';
+part of 'utils.dart';
 
 /// {@template bot_excetion}
 /// Exception implementation for cli.

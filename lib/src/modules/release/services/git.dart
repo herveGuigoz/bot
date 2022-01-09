@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:bot/src/models/models.dart';
-import 'package:bot/src/services/shell.dart';
-import 'package:bot/src/utils/extensions.dart';
+import 'package:bot/src/cli/shell.dart';
+import 'package:bot/src/modules/release/models/models.dart';
+import 'package:bot/src/utils/utils.dart';
 
 const _lineSplitter = LineSplitter();
 

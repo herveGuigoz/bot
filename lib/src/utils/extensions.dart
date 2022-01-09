@@ -1,3 +1,5 @@
+part of 'utils.dart';
+
 /// Utilities on List<String>.
 extension JoinExtension on List<String> {
   /// Joins the elements of the list with new line.

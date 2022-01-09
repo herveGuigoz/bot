@@ -1,8 +1,7 @@
 import 'dart:io';
 
 import 'package:args/command_runner.dart';
-import 'package:bot/src/models/models.dart';
-import 'package:bot/src/services/services.dart';
+import 'package:bot/src/modules/release/release.dart';
 import 'package:bot/src/utils/utils.dart';
 import 'package:io/io.dart';
 import 'package:path/path.dart' as path;
