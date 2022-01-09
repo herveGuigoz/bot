@@ -4,7 +4,8 @@ import 'package:args/args.dart';
 import 'package:args/command_runner.dart';
 import 'package:bot/src/commons/templates.dart';
 import 'package:bot/src/modules/openapi/openapi.dart';
-import 'package:mason/mason.dart';
+import 'package:bot/src/utils/utils.dart';
+import 'package:mason/mason.dart' as m;
 import 'package:universal_io/io.dart';
 
 typedef Json = Map<String, dynamic>;
@@ -51,7 +52,7 @@ class OpenApiCommand extends Command<int> {
   String get name => 'openapi';
 
   @override
-  String get invocation => 'openapi <openapi-url>';
+  String get invocation => 'bot openapi <openapi-url>';
 
   ArgResults get results => argResults!;
 
@@ -73,9 +74,9 @@ class OpenApiCommand extends Command<int> {
       final documentation = await parser.parse(openapiEndpoint);
       process('Loaded openApi documentation.');
 
-      final generator = await MasonGenerator.fromBundle(template.bundle);
+      final generator = await m.MasonGenerator.fromBundle(template.bundle);
       await generator.generate(
-        DirectoryGeneratorTarget(outputDirectory, _logger),
+        m.DirectoryGeneratorTarget(outputDirectory),
         vars: jsonDecode(jsonEncode(documentation.toJson())) as Json,
       );
 
