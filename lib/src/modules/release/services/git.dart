@@ -50,7 +50,16 @@ class Git {
 
     final response = result.stdout as String;
     final lines = _lineSplitter.convert(response).map((l) => l.sanitize);
-    final commits = lines.map((line) => Commit.fromString(line)).toList();
+    final commits = <Commit>[];
+
+    for (final line in lines) {
+      try {
+        final commit = Commit.fromString(line);
+        commits.add(commit);
+      } catch (_) {
+        continue;
+      }
+    }
 
     return commits..sort();
   }
