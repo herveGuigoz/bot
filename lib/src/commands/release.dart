@@ -92,7 +92,7 @@ class ReleaseCommand extends Command<int> {
     if (await Git.hasDirtyIndex()) {
       throw GitDirtyIndexException();
     }
-    
+
     if (!isForced) {
       await validateNextVersion(version);
     }
