@@ -2,6 +2,7 @@ import 'package:path/path.dart' as p;
 import 'package:universal_io/io.dart';
 
 part 'dart.dart';
+part 'flutter.dart';
 
 /// {@template shell}
 /// Abstraction for running commands via command-line.
