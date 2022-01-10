@@ -1,17 +1,18 @@
 import 'dart:convert';
 
-import 'package:args/args.dart';
 import 'package:args/command_runner.dart';
+import 'package:bot/src/commands/bot.dart';
 import 'package:bot/src/commons/templates.dart';
 import 'package:bot/src/modules/openapi/openapi.dart';
 import 'package:bot/src/utils/utils.dart';
+import 'package:io/io.dart';
 import 'package:mason/mason.dart' as m;
 import 'package:universal_io/io.dart';
 
 typedef Json = Map<String, dynamic>;
 
-class OpenApiCommand extends Command<int> {
-  OpenApiCommand({Logger? logger}) : _logger = logger ?? Logger() {
+class OpenApiCommand extends BotCommand {
+  OpenApiCommand({Logger? logger}) : super(logger: logger) {
     argParser
       ..addOption(
         'output-dir',
@@ -30,8 +31,6 @@ class OpenApiCommand extends Command<int> {
         help: 'Generate Freezed class.',
       );
   }
-
-  final Logger _logger;
 
   final parser = ApiDocParser.openapi();
 
@@ -54,39 +53,21 @@ class OpenApiCommand extends Command<int> {
   @override
   String get invocation => 'bot openapi <openapi-url>';
 
-  ArgResults get results => argResults!;
-
-  String get openapiEndpoint {
-    final rest = results.rest;
-    _validateOpenapiEndpoint(rest);
-    return rest.first;
+  @override
+  Directory get outputDirectory {
+    final directory = args['output-dir'] as String?;
+    if (directory == null) {
+      throw UsageException('The output directory is not specified.', usage);
+    }
+    return Directory(directory);
   }
 
-  bool get isFreezed => results['freezed'] as bool;
+  bool get isFreezed => args['freezed'] as bool;
 
-  @override
-  Future<int> run() async {
-    final outputDirectory = Directory(results['output-dir'] as String);
-    final template = isFreezed ? _templates.last : _templates.first;
-
-    final process = _logger.progress('Loading openApi documentation');
-    try {
-      final documentation = await parser.parse(openapiEndpoint);
-      process('Loaded openApi documentation.');
-
-      final generator = await m.MasonGenerator.fromBundle(template.bundle);
-      await generator.generate(
-        m.DirectoryGeneratorTarget(outputDirectory),
-        vars: jsonDecode(jsonEncode(documentation.toJson())) as Json,
-      );
-
-      await template.onGenerateComplete(_logger, outputDirectory);
-    } catch (_) {
-      process();
-      rethrow;
-    }
-
-    return 0;
+  String get openapiEndpoint {
+    final rest = args.rest;
+    _validateOpenapiEndpoint(rest);
+    return rest.first;
   }
 
   void _validateOpenapiEndpoint(List<String> args) {
@@ -100,5 +81,31 @@ class OpenApiCommand extends Command<int> {
     if (args.length > 1) {
       throw UsageException('Multiple url specified.', usage);
     }
+  }
+
+  @override
+  Future<int> run() async {
+    var process = logger.progress('Loading openApi documentation');
+    try {
+      final directory = outputDirectory;
+      final template = isFreezed ? _templates.last : _templates.first;
+      final documentation = await parser.parse(openapiEndpoint);
+      process('Loaded openApi documentation.');
+
+      process = logger.progress('Bootstrapping');
+      final generator = await m.MasonGenerator.fromBundle(template.bundle);
+      await generator.generate(
+        m.DirectoryGeneratorTarget(directory),
+        vars: jsonDecode(jsonEncode(documentation.toJson())) as Json,
+      );
+
+      await template.onGenerateComplete(logger, outputDirectory);
+      process('Generated models files.');
+    } catch (_) {
+      process();
+      rethrow;
+    }
+
+    return ExitCode.success.code;
   }
 }
