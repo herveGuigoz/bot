@@ -89,7 +89,12 @@ class OpenApiCommand extends BotCommand {
     try {
       final directory = outputDirectory;
       final template = isFreezed ? _templates.last : _templates.first;
-      final documentation = await parser.parse(openapiEndpoint);
+
+      final documentation = await parser.parse(
+        openapiEndpoint,
+        authorization: args['authorization'] as String?,
+      );
+
       process('Loaded openApi documentation.');
 
       process = logger.progress('Bootstrapping');

@@ -4,6 +4,8 @@ import 'package:universal_io/io.dart';
 part 'dart.dart';
 part 'flutter.dart';
 
+typedef Progress = void Function([String?]) Function(String message);
+
 /// {@template shell}
 /// Abstraction for running commands via command-line.
 /// {@endtemplate}

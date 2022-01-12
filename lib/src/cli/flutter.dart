@@ -12,11 +12,20 @@ class Flutter {
     }
   }
 
+  /// Create new flutter project
+  static Future<void> create({
+    String? org,
+    String? name,
+    String cwd = '.',
+  }) async {
+    await Shell.run('flutter', ['create'], workingDirectory: cwd);
+  }
+
   /// Install flutter dependencies (`flutter packages get`).
   static Future<void> packagesGet({
     String cwd = '.',
     bool recursive = false,
-    void Function([String?]) Function(String message)? progress,
+    Progress? progress,
   }) async {
     await _installPackages(
       cmd: (cwd) async {

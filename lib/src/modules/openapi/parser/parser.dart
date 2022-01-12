@@ -10,15 +10,22 @@ import 'package:http/http.dart' as http;
 abstract class ApiDocParser {
   factory ApiDocParser.openapi() = OpenApiDocParser;
 
-  Future<Api> parse(String entrypointURL);
+  Future<Api> parse(String entrypointURL, {String? authorization});
 }
 
 /// Parse OpenApi specification.
 class OpenApiDocParser with NetworkOpenApiMixin implements ApiDocParser {
   /// Parses OpenAPI specification and returns a [Api] object.
   @override
-  Future<Api> parse(String entrypointURL) async {
-    final document = await fetchDocument(entrypointURL);
+  Future<Api> parse(
+    String entrypointURL, {
+    String? authorization,
+  }) async {
+    final document = await fetchDocument(
+      entrypointURL,
+      authorization: authorization,
+    );
+
     final ressources = <ApiRessource>[];
 
     for (final path in document.ressourcesPaths) {
@@ -93,16 +100,27 @@ extension on String {
 
 /// Fetch the openapi documentation from the entrypoint
 mixin NetworkOpenApiMixin {
-  Future<http.Response> _get(Uri uri) {
+  Future<http.Response> _get(Uri uri, {Map<String, String>? header}) {
     return HttpOverrides.runWithHttpOverrides(
-      () => http.get(uri, headers: {'Accept': 'application/json'}),
+      () => http.get(uri, headers: {
+        'Accept': 'application/json',
+        if (header != null) ...header,
+      }),
       HandshakeOverride(),
     );
   }
 
   @protected
-  Future<OpenAPI> fetchDocument(String entrypointURL) async {
-    final response = await _get(Uri.parse(entrypointURL));
+  Future<OpenAPI> fetchDocument(
+    String entrypointURL, {
+    String? authorization,
+  }) async {
+    final response = await _get(
+      Uri.parse(entrypointURL),
+      header: authorization != null
+          ? <String, String>{'Authorization': authorization}
+          : null,
+    );
 
     if (response.statusCode != 200) throw RequestFailure();
 

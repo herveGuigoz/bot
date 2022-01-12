@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:bot/src/commons/templates.dart';
-import 'package:bot/src/modules/create/module_bundle.dart';
+import 'package:bot/src/modules/create/module/module_bundle.dart';
 import 'package:bot/src/utils/utils.dart';
 
 class ModuleTemplate extends Template {
