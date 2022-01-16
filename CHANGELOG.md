@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v0.0.3
+>16-01-2022
+
+* ✨ feat: [create] flutter package
+* ✨ feat: Flutter shell
+
 ## v0.0.2
 >10-01-2022
 
