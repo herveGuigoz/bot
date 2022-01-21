@@ -51,3 +51,9 @@ Usage: bot tag [arguments]
 -h, --help    Print this usage information.
 -p, --path    Define the path to the project
 ```
+
+## Inspirations
+
+- [very_good_cli](https://github.com/VeryGoodOpenSource/very_good_cli)
+
+- [dfs](https://github.com/osaxma/dfs)

@@ -25,6 +25,7 @@ final moduleBundle = MasonBundle.fromJson(<String, dynamic>{
     }
   ],
   "hooks": [],
+  "version": "1.0.0",
   "name": "module",
   "description": "A new module.",
   "vars": ["name"]

@@ -21,6 +21,7 @@ class CreateCommand extends BotCommand with NamingMixin {
     argParser
       ..addOption(
         'name',
+        abbr: 'n',
         help: 'The project name for this new project. '
             'This must be a valid dart package name.',
       )
@@ -90,6 +91,7 @@ class CreateCommand extends BotCommand with NamingMixin {
         },
       );
       process('Generated $fileCount file(s)');
+      await template.onGenerateComplete(logger, outputDirectory);
     } catch (_) {
       process();
       rethrow;

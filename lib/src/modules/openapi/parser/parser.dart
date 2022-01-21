@@ -105,7 +105,7 @@ mixin NetworkOpenApiMixin {
       () => http.get(uri, headers: {
         'Accept': 'application/json',
         if (header != null) ...header,
-      }),
+      },),
       HandshakeOverride(),
     );
   }
