@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## v0.0.4
+>21-01-2022
+
+* 🔥 refactor: flutter template bundle
+
 ## v0.0.3
 >16-01-2022
 
