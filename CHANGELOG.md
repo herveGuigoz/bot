@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## v0.0.5
+>21-01-2022
+
+* 👌 fix: flutter template unwanted files
+
 ## v0.0.4
 >21-01-2022
 
