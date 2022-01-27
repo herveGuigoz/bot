@@ -324,7 +324,7 @@ class SchemaCodec extends JsonCodec<Schema> {
       );
     }
 
-    return Schema(
+    return Schema.object(
       type: json['type'] as String?,
       format: json['format'] as String?,
       description: json['description'] as String?,

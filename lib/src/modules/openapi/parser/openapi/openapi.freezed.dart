@@ -2309,7 +2309,7 @@ abstract class _Components implements Components {
 class _$SchemaTearOff {
   const _$SchemaTearOff();
 
-  SchemaObject call(
+  SchemaObject object(
       {String? type,
       String? format,
       String? description,
@@ -2386,8 +2386,8 @@ mixin _$Schema {
   String? get description => throw _privateConstructorUsedError;
 
   @optionalTypeArgs
-  TResult when<TResult extends Object?>(
-    TResult Function(
+  TResult when<TResult extends Object?>({
+    required TResult Function(
             String? type,
             String? format,
             String? description,
@@ -2416,12 +2416,12 @@ mixin _$Schema {
             Schema? not,
             Schema? items,
             Map<String, Schema>? properties)
-        $default, {
+        object,
     required TResult Function(String? description, String ref) ref,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>(
+  TResult? whenOrNull<TResult extends Object?>({
     TResult Function(
             String? type,
             String? format,
@@ -2451,12 +2451,12 @@ mixin _$Schema {
             Schema? not,
             Schema? items,
             Map<String, Schema>? properties)?
-        $default, {
+        object,
     TResult Function(String? description, String ref)? ref,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>(
+  TResult maybeWhen<TResult extends Object?>({
     TResult Function(
             String? type,
             String? format,
@@ -2486,26 +2486,26 @@ mixin _$Schema {
             Schema? not,
             Schema? items,
             Map<String, Schema>? properties)?
-        $default, {
+        object,
     TResult Function(String? description, String ref)? ref,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult map<TResult extends Object?>(
-    TResult Function(SchemaObject value) $default, {
+  TResult map<TResult extends Object?>({
+    required TResult Function(SchemaObject value) object,
     required TResult Function(SchemaObjectRef value) ref,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>(
-    TResult Function(SchemaObject value)? $default, {
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(SchemaObject value)? object,
     TResult Function(SchemaObjectRef value)? ref,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>(
-    TResult Function(SchemaObject value)? $default, {
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(SchemaObject value)? object,
     TResult Function(SchemaObjectRef value)? ref,
     required TResult orElse(),
   }) =>
@@ -2853,7 +2853,7 @@ class _$SchemaObject implements SchemaObject {
 
   @override
   String toString() {
-    return 'Schema(type: $type, format: $format, description: $description, readOnly: $readOnly, writeOnly: $writeOnly, nullable: $nullable, defaultValue: $defaultValue, multipleOf: $multipleOf, maximum: $maximum, exclusiveMaximum: $exclusiveMaximum, minimum: $minimum, exclusiveMinimum: $exclusiveMinimum, maxLength: $maxLength, minLength: $minLength, pattern: $pattern, maxItems: $maxItems, minItems: $minItems, uniqueItems: $uniqueItems, maxProperties: $maxProperties, minProperties: $minProperties, required: $required, enumValues: $enumValues, allOf: $allOf, oneOf: $oneOf, anyOf: $anyOf, not: $not, items: $items, properties: $properties)';
+    return 'Schema.object(type: $type, format: $format, description: $description, readOnly: $readOnly, writeOnly: $writeOnly, nullable: $nullable, defaultValue: $defaultValue, multipleOf: $multipleOf, maximum: $maximum, exclusiveMaximum: $exclusiveMaximum, minimum: $minimum, exclusiveMinimum: $exclusiveMinimum, maxLength: $maxLength, minLength: $minLength, pattern: $pattern, maxItems: $maxItems, minItems: $minItems, uniqueItems: $uniqueItems, maxProperties: $maxProperties, minProperties: $minProperties, required: $required, enumValues: $enumValues, allOf: $allOf, oneOf: $oneOf, anyOf: $anyOf, not: $not, items: $items, properties: $properties)';
   }
 
   @override
@@ -2941,8 +2941,8 @@ class _$SchemaObject implements SchemaObject {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object?>(
-    TResult Function(
+  TResult when<TResult extends Object?>({
+    required TResult Function(
             String? type,
             String? format,
             String? description,
@@ -2971,10 +2971,10 @@ class _$SchemaObject implements SchemaObject {
             Schema? not,
             Schema? items,
             Map<String, Schema>? properties)
-        $default, {
+        object,
     required TResult Function(String? description, String ref) ref,
   }) {
-    return $default(
+    return object(
         type,
         format,
         description,
@@ -3007,7 +3007,7 @@ class _$SchemaObject implements SchemaObject {
 
   @override
   @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>(
+  TResult? whenOrNull<TResult extends Object?>({
     TResult Function(
             String? type,
             String? format,
@@ -3037,10 +3037,10 @@ class _$SchemaObject implements SchemaObject {
             Schema? not,
             Schema? items,
             Map<String, Schema>? properties)?
-        $default, {
+        object,
     TResult Function(String? description, String ref)? ref,
   }) {
-    return $default?.call(
+    return object?.call(
         type,
         format,
         description,
@@ -3073,7 +3073,7 @@ class _$SchemaObject implements SchemaObject {
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>(
+  TResult maybeWhen<TResult extends Object?>({
     TResult Function(
             String? type,
             String? format,
@@ -3103,12 +3103,12 @@ class _$SchemaObject implements SchemaObject {
             Schema? not,
             Schema? items,
             Map<String, Schema>? properties)?
-        $default, {
+        object,
     TResult Function(String? description, String ref)? ref,
     required TResult orElse(),
   }) {
-    if ($default != null) {
-      return $default(
+    if (object != null) {
+      return object(
           type,
           format,
           description,
@@ -3143,31 +3143,31 @@ class _$SchemaObject implements SchemaObject {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object?>(
-    TResult Function(SchemaObject value) $default, {
+  TResult map<TResult extends Object?>({
+    required TResult Function(SchemaObject value) object,
     required TResult Function(SchemaObjectRef value) ref,
   }) {
-    return $default(this);
+    return object(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>(
-    TResult Function(SchemaObject value)? $default, {
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(SchemaObject value)? object,
     TResult Function(SchemaObjectRef value)? ref,
   }) {
-    return $default?.call(this);
+    return object?.call(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>(
-    TResult Function(SchemaObject value)? $default, {
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(SchemaObject value)? object,
     TResult Function(SchemaObjectRef value)? ref,
     required TResult orElse(),
   }) {
-    if ($default != null) {
-      return $default(this);
+    if (object != null) {
+      return object(this);
     }
     return orElse();
   }
@@ -3314,8 +3314,8 @@ class _$SchemaObjectRef implements SchemaObjectRef {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object?>(
-    TResult Function(
+  TResult when<TResult extends Object?>({
+    required TResult Function(
             String? type,
             String? format,
             String? description,
@@ -3344,7 +3344,7 @@ class _$SchemaObjectRef implements SchemaObjectRef {
             Schema? not,
             Schema? items,
             Map<String, Schema>? properties)
-        $default, {
+        object,
     required TResult Function(String? description, String ref) ref,
   }) {
     return ref(description, this.ref);
@@ -3352,7 +3352,7 @@ class _$SchemaObjectRef implements SchemaObjectRef {
 
   @override
   @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>(
+  TResult? whenOrNull<TResult extends Object?>({
     TResult Function(
             String? type,
             String? format,
@@ -3382,7 +3382,7 @@ class _$SchemaObjectRef implements SchemaObjectRef {
             Schema? not,
             Schema? items,
             Map<String, Schema>? properties)?
-        $default, {
+        object,
     TResult Function(String? description, String ref)? ref,
   }) {
     return ref?.call(description, this.ref);
@@ -3390,7 +3390,7 @@ class _$SchemaObjectRef implements SchemaObjectRef {
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>(
+  TResult maybeWhen<TResult extends Object?>({
     TResult Function(
             String? type,
             String? format,
@@ -3420,7 +3420,7 @@ class _$SchemaObjectRef implements SchemaObjectRef {
             Schema? not,
             Schema? items,
             Map<String, Schema>? properties)?
-        $default, {
+        object,
     TResult Function(String? description, String ref)? ref,
     required TResult orElse(),
   }) {
@@ -3432,8 +3432,8 @@ class _$SchemaObjectRef implements SchemaObjectRef {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object?>(
-    TResult Function(SchemaObject value) $default, {
+  TResult map<TResult extends Object?>({
+    required TResult Function(SchemaObject value) object,
     required TResult Function(SchemaObjectRef value) ref,
   }) {
     return ref(this);
@@ -3441,8 +3441,8 @@ class _$SchemaObjectRef implements SchemaObjectRef {
 
   @override
   @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>(
-    TResult Function(SchemaObject value)? $default, {
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(SchemaObject value)? object,
     TResult Function(SchemaObjectRef value)? ref,
   }) {
     return ref?.call(this);
@@ -3450,8 +3450,8 @@ class _$SchemaObjectRef implements SchemaObjectRef {
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>(
-    TResult Function(SchemaObject value)? $default, {
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(SchemaObject value)? object,
     TResult Function(SchemaObjectRef value)? ref,
     required TResult orElse(),
   }) {

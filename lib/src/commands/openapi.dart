@@ -32,8 +32,6 @@ class OpenApiCommand extends BotCommand {
       );
   }
 
-  final parser = ApiDocParser.openapi();
-
   static final List<Template> _templates = [
     ModelsTemplate(),
     FreezedTemplate(),
@@ -70,6 +68,15 @@ class OpenApiCommand extends BotCommand {
     return rest.first;
   }
 
+  ApiDocParser get parser {
+    final endpoint = openapiEndpoint;
+    if (endpoint.startsWith(RegExp('[http|https]'))) {
+      return ApiDocParser.network(endpoint);
+    }
+
+    return ApiDocParser.json(endpoint);
+  }
+
   void _validateOpenapiEndpoint(List<String> args) {
     if (args.isEmpty) {
       throw UsageException(
@@ -91,7 +98,6 @@ class OpenApiCommand extends BotCommand {
       final template = isFreezed ? _templates.last : _templates.first;
 
       final documentation = await parser.parse(
-        openapiEndpoint,
         authorization: args['authorization'] as String?,
       );
 
@@ -99,6 +105,11 @@ class OpenApiCommand extends BotCommand {
 
       process = logger.progress('Bootstrapping');
       final generator = await m.MasonGenerator.fromBundle(template.bundle);
+
+      // File('openapi.json').writeAsStringSync(
+      //   jsonEncode(documentation.toJson()),
+      // );
+
       await generator.generate(
         m.DirectoryGeneratorTarget(directory),
         vars: jsonDecode(jsonEncode(documentation.toJson())) as Json,

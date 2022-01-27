@@ -175,7 +175,7 @@ class Components with _$Components {
 /// https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#schema-object
 @freezed
 class Schema with _$Schema {
-  const factory Schema({
+  const factory Schema.object({
     String? type,
     String? format,
     String? description,
