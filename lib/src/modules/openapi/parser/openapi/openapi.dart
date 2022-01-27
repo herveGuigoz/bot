@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'openapi.freezed.dart';
@@ -28,36 +30,15 @@ extension PathItemExtension on PathItem {
   }
 }
 
-extension SchemaObjectExtension on SchemaObject {
-  String get asDartType {
-    if (type == 'array' && items != null) {
-      return items!.map(
-        (value) => 'List<${value.type?.asDartType()}>',
-        ref: (value) => 'List<${value.ref.split('/').last}>',
-      );
-    }
-
-    if (type == 'string') {
-      return format == 'date' || format == 'date-time' ? 'DateTime' : 'String';
-    }
-
-    return type?.asDartType() ?? 'dynamic';
-  }
-}
-
 extension StringExtension on String {
-  String asDartType() {
-    switch (this) {
-      case 'integer':
-        return 'int';
-      case 'number':
-        return 'double';
-      case 'boolean':
-        return 'bool';
-      case 'string':
-        return 'String';
-      default:
-        return this;
-    }
+  String capitalize() {
+    return isEmpty ? this : (this[0].toUpperCase() + substring(1));
+  }
+
+  String asComments() {
+    if (length <= 80) return this;
+    final splitted = split(RegExp('[.|:]')).first;
+
+    return splitted.substring(0, min(80, splitted.length));
   }
 }
